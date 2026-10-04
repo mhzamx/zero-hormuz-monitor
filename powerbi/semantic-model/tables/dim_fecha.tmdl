@@ -1,0 +1,101 @@
+table dim_fecha
+	lineageTag: 87c9b860-547c-46ea-aabe-0af6878a6de6
+
+	column fecha
+		dataType: int64
+		formatString: 0
+		lineageTag: af9853de-9e08-4683-8649-5e678bccd2ff
+		summarizeBy: sum
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column anio
+		dataType: int64
+		formatString: 0
+		lineageTag: e27e2e38-0602-4797-9423-3e4f2472d777
+		summarizeBy: none
+		sourceColumn: anio
+
+	column mes
+		dataType: int64
+		formatString: 0
+		lineageTag: df561f8c-989e-4f40-86d2-7ade55cca189
+		summarizeBy: none
+		sourceColumn: mes
+
+	column mes_nombre
+		dataType: dateTime
+		formatString: mmm yyyy
+		lineageTag: baf320e7-ffb6-4a8b-b699-17b347a6e5bd
+		summarizeBy: none
+		sourceColumn: mes_nombre
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column trimestre
+		dataType: string
+		lineageTag: b321f9d7-df78-4375-9e78-439a383092db
+		summarizeBy: none
+		sourceColumn: trimestre
+
+		annotation SummarizationSetBy = Automatic
+
+	column semana_fin_domingo
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fda382a-1ca2-46b5-9088-ef32d9591ae9
+		summarizeBy: sum
+		sourceColumn: semana_fin_domingo
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo
+		dataType: string
+		lineageTag: 4744c4e5-ccf8-4ae9-b826-4434f92cb612
+		summarizeBy: none
+		sourceColumn: periodo
+
+		annotation SummarizationSetBy = Automatic
+
+	column dias_desde_choque
+		dataType: int64
+		formatString: 0
+		lineageTag: eb53233f-96a5-480d-a28a-284a5bcf5105
+		summarizeBy: sum
+		sourceColumn: dias_desde_choque
+
+		annotation SummarizationSetBy = Automatic
+
+	column Día = CONVERT ( dim_fecha[fecha], DATETIME )
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 66340f75-b39f-418f-a4c9-edee4df52215
+		summarizeBy: none
+
+	column Semana = CONVERT ( dim_fecha[semana_fin_domingo], DATETIME )
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: c0ef06df-91d2-483f-b3ce-3b4c559657c9
+		summarizeBy: none
+
+	column 'Periodo comparación' = SWITCH ( TRUE (), dim_fecha[Día] >= DATE ( 2026, 3, 1 ) && dim_fecha[Día] <= DATE ( 2026, 9, 25 ), "2026 (cierre)", dim_fecha[Día] >= DATE ( 2025, 3, 1 ) && dim_fecha[Día] <= DATE ( 2025, 9, 25 ), "2025 (normal)", BLANK () )
+		dataType: string
+		lineageTag: 8bc5ea5d-baef-4885-a98d-74c54d941a5e
+		summarizeBy: none
+
+	partition dim_fecha = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    dim_fecha_Sheet = Origen{[Item="dim_fecha",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_fecha_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"fecha", Int64.Type}, {"anio", Int64.Type}, {"mes", Int64.Type}, {"mes_nombre", type date}, {"trimestre", type text}, {"semana_fin_domingo", Int64.Type}, {"periodo", type text}, {"dias_desde_choque", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

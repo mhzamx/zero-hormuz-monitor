@@ -1,0 +1,48 @@
+table cascada_M3
+	lineageTag: e524b92d-68fd-4497-8b10-8bb136f8f465
+
+	column segmento
+		dataType: string
+		lineageTag: f98ba97d-9197-4175-9765-75c5c1bfd5e5
+		summarizeBy: none
+		sourceColumn: segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 4476b6d8-102e-473b-a933-8255aebcace9
+		summarizeBy: none
+		sourceColumn: orden
+
+	column concepto
+		dataType: string
+		lineageTag: 39e0ba21-9d2e-4529-bf29-3a62a7ed2f11
+		summarizeBy: none
+		sourceColumn: concepto
+		sortByColumn: orden
+
+	column valor_Mt
+		dataType: double
+		lineageTag: 7319d7f1-8c6f-4d37-b639-7cd223e13f26
+		summarizeBy: sum
+		sourceColumn: valor_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition cascada_M3 = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    cascada_M3_Sheet = Origen{[Item="cascada_M3",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(cascada_M3_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"orden", Int64.Type}, {"concepto", type text}, {"valor_Mt", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

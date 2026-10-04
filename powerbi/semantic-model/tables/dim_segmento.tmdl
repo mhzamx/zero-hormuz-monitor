@@ -1,0 +1,47 @@
+table dim_segmento
+	lineageTag: 0ba625cf-34e5-4007-9c17-d3127df31d60
+
+	column segmento
+		dataType: string
+		lineageTag: 3708fa43-dc44-44f6-b7a5-a0fd42a41064
+		summarizeBy: none
+		sourceColumn: segmento
+		sortByColumn: orden
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: b325d7fa-5ba0-44e1-949c-bc78405d4937
+		summarizeBy: none
+		sourceColumn: orden
+
+	column es_tanquero
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 7c9b9867-8603-4574-840f-70aa9b4a9c15
+		summarizeBy: none
+		sourceColumn: es_tanquero
+
+		annotation SummarizationSetBy = Automatic
+
+	column nota
+		dataType: string
+		lineageTag: 591bc361-6c13-483e-b28f-5d64e3a53ff6
+		summarizeBy: none
+		sourceColumn: nota
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_segmento = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    dim_segmento_Sheet = Origen{[Item="dim_segmento",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_segmento_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"orden", Int64.Type}, {"es_tanquero", type logical}, {"nota", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,91 @@
+table mso_puertos
+	lineageTag: 4c4746ab-7e8b-4c68-989b-fba49b0ff254
+
+	column puerto
+		dataType: string
+		lineageTag: 0513dfac-2809-488b-a04e-476dbe2d9bb6
+		summarizeBy: none
+		sourceColumn: puerto
+
+		annotation SummarizationSetBy = Automatic
+
+	column grupo
+		dataType: string
+		lineageTag: b2dbab00-7594-4a7c-b621-64c9ff69e2f1
+		summarizeBy: none
+		sourceColumn: grupo
+
+		annotation SummarizationSetBy = Automatic
+
+	column segmento
+		dataType: string
+		lineageTag: 01192e81-8e2e-458b-bb90-348a50f26e3b
+		summarizeBy: none
+		sourceColumn: segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column mso_t_semana
+		dataType: double
+		formatString: #,0
+		lineageTag: 09d14927-d4ba-43a4-9815-82b702e53f18
+		summarizeBy: none
+		sourceColumn: mso_t_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column semana_fin_mso
+		dataType: int64
+		formatString: 0
+		lineageTag: fe3a92df-78b1-4fcf-ba4d-4becee1831a4
+		summarizeBy: sum
+		sourceColumn: semana_fin_mso
+
+		annotation SummarizationSetBy = Automatic
+
+	column promedio_semanal_mar_sep_2025_t
+		dataType: double
+		formatString: #,0
+		lineageTag: e02f6f15-c721-4d7d-b062-728a6bcd63ea
+		summarizeBy: none
+		sourceColumn: promedio_semanal_mar_sep_2025_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column mso_vs_2025
+		dataType: double
+		formatString: 0.0
+		lineageTag: 5a8723be-a5d7-4ddc-9d5b-4fef1f3531e9
+		summarizeBy: none
+		sourceColumn: mso_vs_2025
+
+		annotation SummarizationSetBy = Automatic
+
+	column ultimo_prom4_t_semana
+		dataType: double
+		formatString: #,0
+		lineageTag: 5ac70cf2-7e35-4524-9df3-9a7513f6877f
+		summarizeBy: none
+		sourceColumn: ultimo_prom4_t_semana
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana MSO' = CONVERT ( mso_puertos[semana_fin_mso], DATETIME )
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 48c81775-f476-472c-ba1b-9de76cbb02ee
+		summarizeBy: none
+
+	partition mso_puertos = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    mso_puertos_Sheet = Origen{[Item="mso_puertos",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(mso_puertos_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"puerto", type text}, {"grupo", type text}, {"segmento", type text}, {"mso_t_semana", type number}, {"semana_fin_mso", Int64.Type}, {"promedio_semanal_mar_sep_2025_t", type number}, {"mso_vs_2025", type number}, {"ultimo_prom4_t_semana", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

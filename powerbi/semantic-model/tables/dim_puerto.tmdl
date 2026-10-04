@@ -1,0 +1,76 @@
+table dim_puerto
+	lineageTag: 577d76e9-dbe4-46c1-b430-b83b37cb7239
+
+	column portid
+		dataType: string
+		lineageTag: c9299ce0-bd4f-4b2d-9637-faae943cb27b
+		summarizeBy: none
+		sourceColumn: portid
+
+		annotation SummarizationSetBy = Automatic
+
+	column puerto
+		dataType: string
+		lineageTag: 7c816968-220b-4f7e-86c2-977b9c1bd3cb
+		summarizeBy: none
+		sourceColumn: puerto
+
+		annotation SummarizationSetBy = Automatic
+
+	column grupo
+		dataType: string
+		lineageTag: f852a6b6-2c5f-4189-a484-0f24912772b2
+		summarizeBy: none
+		sourceColumn: grupo
+		sortByColumn: orden_grupo
+
+	column pais
+		dataType: string
+		lineageTag: 3ddf9939-32d2-46ea-a390-2b310aad3485
+		summarizeBy: none
+		sourceColumn: pais
+
+		annotation SummarizationSetBy = Automatic
+
+	column ubicacion
+		dataType: string
+		lineageTag: b92102ba-0829-4ffb-af3c-12a6e2826c08
+		summarizeBy: none
+		sourceColumn: ubicacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column lat
+		dataType: double
+		lineageTag: e7915689-6013-4185-bd3c-2cb7c49d1c6d
+		dataCategory: Latitude
+		summarizeBy: none
+		sourceColumn: lat
+
+	column lon
+		dataType: double
+		lineageTag: c1845cb4-68c1-4ff7-a2cd-81beb74fe264
+		dataCategory: Longitude
+		summarizeBy: none
+		sourceColumn: lon
+
+	column orden_grupo
+		dataType: int64
+		formatString: 0
+		lineageTag: cf427830-dc94-4540-99a5-b0ba0b9dd9f2
+		summarizeBy: none
+		sourceColumn: orden_grupo
+
+	partition dim_puerto = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    dim_puerto_Sheet = Origen{[Item="dim_puerto",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_puerto_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"portid", type text}, {"puerto", type text}, {"grupo", type text}, {"pais", type text}, {"ubicacion", type text}, {"lat", type number}, {"lon", type number}, {"orden_grupo", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

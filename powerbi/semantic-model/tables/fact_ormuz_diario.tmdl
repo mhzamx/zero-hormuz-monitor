@@ -1,0 +1,89 @@
+table fact_ormuz_diario
+	lineageTag: 95681bdb-5670-43d3-8df7-f09418837e39
+
+	column fecha
+		dataType: int64
+		formatString: 0
+		lineageTag: d2e50b49-8d87-402a-a28d-c7904f52814c
+		summarizeBy: sum
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column transitos_total
+		dataType: int64
+		formatString: 0
+		lineageTag: 7dcb7bb1-733a-40d0-8ebd-0f60b44d699c
+		summarizeBy: sum
+		sourceColumn: transitos_total
+
+		annotation SummarizationSetBy = Automatic
+
+	column tanqueros
+		dataType: int64
+		formatString: 0
+		lineageTag: 637b1f7e-7460-42bc-9e8d-a785f56c070e
+		summarizeBy: sum
+		sourceColumn: tanqueros
+
+		annotation SummarizationSetBy = Automatic
+
+	column contenedores
+		dataType: int64
+		formatString: 0
+		lineageTag: 41d53a20-5812-4517-8194-206b9b7a3cef
+		summarizeBy: sum
+		sourceColumn: contenedores
+
+		annotation SummarizationSetBy = Automatic
+
+	column granel_seco
+		dataType: int64
+		formatString: 0
+		lineageTag: 81f9859c-dddd-4141-8b0e-085c50087f9c
+		summarizeBy: sum
+		sourceColumn: granel_seco
+
+		annotation SummarizationSetBy = Automatic
+
+	column carga_general
+		dataType: int64
+		formatString: 0
+		lineageTag: cafe980d-ce4e-4245-bc5f-2b6d4c84165b
+		summarizeBy: sum
+		sourceColumn: carga_general
+
+		annotation SummarizationSetBy = Automatic
+
+	column roro
+		dataType: int64
+		formatString: 0
+		lineageTag: f8e4f3f2-9c03-4c4c-a043-ad9a466b290f
+		summarizeBy: sum
+		sourceColumn: roro
+
+		annotation SummarizationSetBy = Automatic
+
+	column ref_M3_transitos
+		dataType: double
+		lineageTag: 381aaca8-e7dc-4212-a57d-bef87c1306bd
+		summarizeBy: sum
+		sourceColumn: ref_M3_transitos
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_ormuz_diario = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    fact_ormuz_diario_Sheet = Origen{[Item="fact_ormuz_diario",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(fact_ormuz_diario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"fecha", Int64.Type}, {"transitos_total", Int64.Type}, {"tanqueros", Int64.Type}, {"contenedores", Int64.Type}, {"granel_seco", Int64.Type}, {"carga_general", Int64.Type}, {"roro", Int64.Type}, {"ref_M3_transitos", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

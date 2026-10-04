@@ -1,0 +1,125 @@
+table fact_puerto_diario
+	lineageTag: 1eb8aeff-38d5-4ece-8ceb-63da8dbd21b3
+
+	column fecha
+		dataType: int64
+		formatString: 0
+		lineageTag: d2f7e5f8-8b79-49d2-8b01-f79812ceb6ae
+		summarizeBy: sum
+		sourceColumn: fecha
+
+		annotation SummarizationSetBy = Automatic
+
+	column portid
+		dataType: string
+		lineageTag: 8039c73c-7444-46f1-8c83-631f2d7f9cfd
+		summarizeBy: none
+		sourceColumn: portid
+
+		annotation SummarizationSetBy = Automatic
+
+	column segmento
+		dataType: string
+		lineageTag: 808f79ee-0cfc-46e3-850f-d3935b063dfb
+		summarizeBy: none
+		sourceColumn: segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column toneladas_importacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 9d87be72-f7cb-489e-aae6-75bc5c81d388
+		summarizeBy: sum
+		sourceColumn: toneladas_importacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column toneladas_exportacion
+		dataType: int64
+		formatString: 0
+		lineageTag: 139132eb-1d48-403b-8a94-326acb389055
+		summarizeBy: sum
+		sourceColumn: toneladas_exportacion
+
+		annotation SummarizationSetBy = Automatic
+
+	column toneladas
+		dataType: int64
+		formatString: 0
+		lineageTag: 8672a5d9-fc22-428e-aa23-1351cf95b6ad
+		summarizeBy: sum
+		sourceColumn: toneladas
+
+		annotation SummarizationSetBy = Automatic
+
+	column ref_M3_t
+		dataType: double
+		lineageTag: da742f0f-b3f3-4251-a1a8-7ea47a2d5caa
+		summarizeBy: sum
+		sourceColumn: ref_M3_t
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ref_M1_t
+		dataType: int64
+		formatString: 0
+		lineageTag: c77bb818-307d-46ce-959f-26fdc5cc5693
+		summarizeBy: sum
+		sourceColumn: ref_M1_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column ref_M4_t
+		dataType: double
+		lineageTag: 4d932570-4cc0-4214-96ea-cabc3ab81c28
+		summarizeBy: sum
+		sourceColumn: ref_M4_t
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column escalas
+		dataType: int64
+		formatString: 0
+		lineageTag: d33043dd-a4ec-42ea-8812-5765bd8e9af2
+		summarizeBy: sum
+		sourceColumn: escalas
+
+		annotation SummarizationSetBy = Automatic
+
+	column ref_M3_escalas
+		dataType: double
+		lineageTag: 0082541c-96e5-4e88-a82d-7e638f022e09
+		summarizeBy: sum
+		sourceColumn: ref_M3_escalas
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ref_M1_escalas
+		dataType: int64
+		formatString: 0
+		lineageTag: 27434bb2-08f2-4f4f-9568-9e611f5b0636
+		summarizeBy: sum
+		sourceColumn: ref_M1_escalas
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_puerto_diario = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    fact_puerto_diario_Sheet = Origen{[Item="fact_puerto_diario",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(fact_puerto_diario_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"fecha", Int64.Type}, {"portid", type text}, {"segmento", type text}, {"toneladas_importacion", Int64.Type}, {"toneladas_exportacion", Int64.Type}, {"toneladas", Int64.Type}, {"ref_M3_t", type number}, {"ref_M1_t", Int64.Type}, {"ref_M4_t", type number}, {"escalas", Int64.Type}, {"ref_M3_escalas", type number}, {"ref_M1_escalas", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

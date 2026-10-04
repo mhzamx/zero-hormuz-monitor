@@ -1,0 +1,59 @@
+table porque_semanal
+	lineageTag: 2939355c-4017-4d1c-87ca-6bd82d1dc3e5
+
+	column semana
+		dataType: dateTime
+		formatString: dd mmm yyyy
+		lineageTag: 5fa8ea84-02ec-46c6-83c8-041d7507bb5f
+		summarizeBy: none
+		sourceColumn: semana
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column jebel_ali_cont_kt
+		dataType: double
+		formatString: #,0
+		lineageTag: 66465517-e4e0-471b-8eca-64b8ced7721e
+		summarizeBy: sum
+		sourceColumn: jebel_ali_cont_kt
+
+	column khor_fakkan_cont_kt
+		dataType: double
+		formatString: #,0
+		lineageTag: 225617e9-cbfa-4ed6-89f8-b558c60d33f4
+		summarizeBy: sum
+		sourceColumn: khor_fakkan_cont_kt
+
+	column khor_fakkan_prom4_kt
+		dataType: double
+		formatString: #,0
+		lineageTag: d87c3d07-fe9d-4d15-9595-4296ad15ef49
+		summarizeBy: sum
+		sourceColumn: khor_fakkan_prom4_kt
+
+	column fujairah_cont_kt
+		dataType: double
+		formatString: #,0
+		lineageTag: 2c8a7ce7-20dc-457a-9929-0fd5cbb909b2
+		summarizeBy: sum
+		sourceColumn: fujairah_cont_kt
+
+	column costa_este_cont_kt
+		dataType: double
+		formatString: #,0
+		lineageTag: 1ba471c8-859c-43ec-90ec-ef427b381f46
+		summarizeBy: sum
+		sourceColumn: costa_este_cont_kt
+
+	partition porque_semanal = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Hoja = Origen{[Item="porque_semanal",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Hoja, [PromoteAllScalars=true]),
+				    #"Semana como fecha" = Table.TransformColumns(#"Encabezados promovidos", {{"semana", each Date.From(_), type date}}),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Semana como fecha", {{"jebel_ali_cont_kt", type number}, {"khor_fakkan_cont_kt", type number}, {"khor_fakkan_prom4_kt", type number}, {"fujairah_cont_kt", type number}, {"costa_este_cont_kt", type number}})
+				in
+				    #"Tipo cambiado"
+

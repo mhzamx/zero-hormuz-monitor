@@ -1,0 +1,65 @@
+table porque_capacidad
+	lineageTag: 557eac51-3388-41bb-9b1b-3993c46317b2
+
+	column puerto
+		dataType: string
+		lineageTag: 8f912292-3fc2-4b49-a552-afcbcf8d790a
+		summarizeBy: none
+		sourceColumn: puerto
+
+	column grupo
+		dataType: string
+		lineageTag: be0f8545-49fb-45f9-a9b8-ed486d3433a7
+		summarizeBy: none
+		sourceColumn: grupo
+
+	column capacidad_mteu
+		dataType: double
+		formatString: 0.0#
+		lineageTag: ff008fa3-b183-4e86-8f56-0be3af9e5224
+		summarizeBy: sum
+		sourceColumn: capacidad_mteu
+
+	column nota
+		dataType: string
+		lineageTag: 2a41d9a3-caac-4244-93ca-e2772c326045
+		summarizeBy: none
+		sourceColumn: nota
+
+	column fuente
+		dataType: string
+		lineageTag: e72bdcfd-a516-40b3-ba88-cd04e592d86c
+		summarizeBy: none
+		sourceColumn: fuente
+
+	column url
+		dataType: string
+		lineageTag: 4f635de1-ae3a-4818-8cc5-da1e0efdf766
+		dataCategory: WebUrl
+		summarizeBy: none
+		sourceColumn: url
+
+	column consulta
+		dataType: string
+		lineageTag: 7fcb931d-b595-4bb5-8a89-e8425059f1eb
+		summarizeBy: none
+		sourceColumn: consulta
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 548a75f8-d5a6-47d9-9656-e4190f5a3587
+		summarizeBy: none
+		sourceColumn: orden
+
+	partition porque_capacidad = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Hoja = Origen{[Item="porque_capacidad",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(Hoja, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"puerto", type text}, {"grupo", type text}, {"capacidad_mteu", type number}, {"nota", type text}, {"fuente", type text}, {"url", type text}, {"consulta", type text}, {"orden", Int64.Type}})
+				in
+				    #"Tipo cambiado"
+

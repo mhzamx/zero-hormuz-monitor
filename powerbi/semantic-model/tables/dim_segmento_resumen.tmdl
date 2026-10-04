@@ -1,0 +1,38 @@
+table dim_segmento_resumen
+	lineageTag: 9671b5ce-127c-4dbd-9aab-b49ff85cd22b
+
+	column segmento
+		dataType: string
+		lineageTag: 7b2ff9bc-4036-4666-b6f6-249857dd0090
+		summarizeBy: none
+		sourceColumn: segmento
+		sortByColumn: orden
+
+	column orden
+		dataType: int64
+		formatString: 0
+		lineageTag: 6c89725e-f192-4f9d-8800-7255df3de15c
+		summarizeBy: none
+		sourceColumn: orden
+
+	column tipo
+		dataType: string
+		lineageTag: 5a848f6e-68a0-4856-9e7e-eba9594169c3
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_segmento_resumen = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    dim_segmento_resumen_Sheet = Origen{[Item="dim_segmento_resumen",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_segmento_resumen_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"orden", Int64.Type}, {"tipo", type text}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

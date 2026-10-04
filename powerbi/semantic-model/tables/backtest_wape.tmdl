@@ -1,0 +1,68 @@
+table backtest_wape
+	lineageTag: ef131bd1-f8c9-48f6-8412-9cf30b056709
+
+	column grupo
+		dataType: string
+		lineageTag: eb5ca693-4fc6-4d5c-b350-d5794022b73e
+		summarizeBy: none
+		sourceColumn: grupo
+
+		annotation SummarizationSetBy = Automatic
+
+	column segmento
+		dataType: string
+		lineageTag: 40655c7b-c3d6-4267-8dff-49f33314e70b
+		summarizeBy: none
+		sourceColumn: segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column ventana
+		dataType: string
+		lineageTag: efc4beb0-368d-45a9-9d09-5d168870cd2e
+		summarizeBy: none
+		sourceColumn: ventana
+
+		annotation SummarizationSetBy = Automatic
+
+	column metodo
+		dataType: string
+		lineageTag: 1559255b-1109-4af6-bd30-56e9c6aab774
+		summarizeBy: none
+		sourceColumn: metodo
+
+		annotation SummarizationSetBy = Automatic
+
+	column WAPE_pct
+		dataType: double
+		lineageTag: f44c4dfd-3168-46e5-90a5-833212abe1d8
+		summarizeBy: sum
+		sourceColumn: WAPE_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sesgo_pct
+		dataType: double
+		lineageTag: fa5731b2-20ba-4cd0-acd2-989bb23b9aff
+		summarizeBy: sum
+		sourceColumn: sesgo_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition backtest_wape = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    backtest_wape_Sheet = Origen{[Item="backtest_wape",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(backtest_wape_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"grupo", type text}, {"segmento", type text}, {"ventana", type text}, {"metodo", type text}, {"WAPE_pct", type number}, {"sesgo_pct", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

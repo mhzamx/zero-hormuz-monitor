@@ -1,0 +1,67 @@
+table validacion
+	lineageTag: b854739f-1470-47db-a78e-377db81f566b
+
+	column prueba
+		dataType: string
+		lineageTag: 55be1ff6-01b2-4ddb-91b2-0d4431072204
+		summarizeBy: none
+		sourceColumn: prueba
+
+		annotation SummarizationSetBy = Automatic
+
+	column portwatch
+		dataType: double
+		formatString: 0.0
+		lineageTag: 6ecfc9da-73e3-409b-a3c9-5957c028b0b3
+		summarizeBy: none
+		sourceColumn: portwatch
+
+		annotation SummarizationSetBy = Automatic
+
+	column oficial
+		dataType: double
+		formatString: 0.0
+		lineageTag: 45fe6bad-41b1-40b8-884a-9503a8edca68
+		summarizeBy: none
+		sourceColumn: oficial
+
+		annotation SummarizationSetBy = Automatic
+
+	column fuente_oficial
+		dataType: string
+		lineageTag: c1e37527-f9a5-434b-b186-25bdab1be3b9
+		summarizeBy: none
+		sourceColumn: fuente_oficial
+
+		annotation SummarizationSetBy = Automatic
+
+	column unidad
+		dataType: string
+		lineageTag: f527503a-516f-488b-909e-7bb8aa749d19
+		summarizeBy: none
+		sourceColumn: unidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column diferencia
+		dataType: double
+		formatString: 0.0
+		lineageTag: 558e0d78-7207-48b1-afd4-b5a4a1a7f184
+		summarizeBy: none
+		sourceColumn: diferencia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition validacion = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    validacion_Sheet = Origen{[Item="validacion",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(validacion_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"prueba", type text}, {"portwatch", type number}, {"oficial", type number}, {"fuente_oficial", type text}, {"unidad", type text}, {"diferencia", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,179 @@
+table resumen_acumulado
+	lineageTag: ce0a235b-e54d-4bbd-bc27-92257b88c594
+
+	column segmento
+		dataType: string
+		lineageTag: c257e243-353a-424d-9e4e-acd2ec0af1e2
+		summarizeBy: none
+		sourceColumn: segmento
+
+		annotation SummarizationSetBy = Automatic
+
+	column referencia
+		dataType: string
+		lineageTag: 9ac27c0a-37bb-4dbe-bf55-39f31008f839
+		summarizeBy: none
+		sourceColumn: referencia
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodo
+		dataType: string
+		lineageTag: 4dabc50e-b32d-4c0e-b201-acea57fc5315
+		summarizeBy: none
+		sourceColumn: periodo
+
+		annotation SummarizationSetBy = Automatic
+
+	column golfo_ref_Mt
+		dataType: double
+		lineageTag: 0f9b1653-8400-4598-98f4-f767f5125c54
+		summarizeBy: sum
+		sourceColumn: golfo_ref_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column golfo_act_Mt
+		dataType: double
+		lineageTag: 676ce711-89e9-47cf-b738-674de3ef180c
+		summarizeBy: sum
+		sourceColumn: golfo_act_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column este_ref_Mt
+		dataType: double
+		lineageTag: e200410d-0c9a-4bb0-bccf-1753d2151a14
+		summarizeBy: sum
+		sourceColumn: este_ref_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column este_act_Mt
+		dataType: double
+		lineageTag: 5a06116b-84c0-4ca9-9b5f-8efe0047b43a
+		summarizeBy: sum
+		sourceColumn: este_act_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column a_perdida_golfo_Mt
+		dataType: double
+		lineageTag: beafc6cd-13a0-47b2-b347-bed36ce42eac
+		summarizeBy: sum
+		sourceColumn: a_perdida_golfo_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column b_compensacion_este_Mt
+		dataType: double
+		lineageTag: fb18f0bd-f72a-4d08-8586-d8c08bd3d5a1
+		summarizeBy: sum
+		sourceColumn: b_compensacion_este_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column b_perdida_propia_este_Mt
+		dataType: double
+		lineageTag: f5845fc5-53f1-40cb-9c29-0394b678ed9d
+		summarizeBy: sum
+		sourceColumn: b_perdida_propia_este_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column c_oman_acreditado_Mt
+		dataType: int64
+		formatString: 0
+		lineageTag: c32eb6bd-39ec-43ab-9ec3-e42b8ca8fbef
+		summarizeBy: sum
+		sourceColumn: c_oman_acreditado_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+	column oman_dif_no_acreditada_Mt
+		dataType: double
+		lineageTag: 360a889f-7466-4978-a352-5e14404724fb
+		summarizeBy: sum
+		sourceColumn: oman_dif_no_acreditada_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column d_brecha_residual_Mt
+		dataType: double
+		lineageTag: 42f2694f-77fb-4a00-9eef-633e8e4550aa
+		summarizeBy: sum
+		sourceColumn: d_brecha_residual_Mt
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column preservada_pct
+		dataType: double
+		lineageTag: e021bb5b-f699-4a23-a8fd-5d6fb63035b6
+		summarizeBy: sum
+		sourceColumn: preservada_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ido_ref_pct
+		dataType: double
+		lineageTag: 6172e40d-689f-4041-96c9-736759de4308
+		summarizeBy: sum
+		sourceColumn: ido_ref_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column ido_act_pct
+		dataType: double
+		lineageTag: 6417f8a3-370e-4ed6-8f44-cf980f3c7efe
+		summarizeBy: sum
+		sourceColumn: ido_act_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column compensacion_pct_de_perdida
+		dataType: double
+		lineageTag: 1c739ad5-af31-43e1-a309-6070829f0fda
+		summarizeBy: sum
+		sourceColumn: compensacion_pct_de_perdida
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition resumen_acumulado = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    resumen_acumulado_Sheet = Origen{[Item="resumen_acumulado",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(resumen_acumulado_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"referencia", type text}, {"periodo", type text}, {"golfo_ref_Mt", type number}, {"golfo_act_Mt", type number}, {"este_ref_Mt", type number}, {"este_act_Mt", type number}, {"a_perdida_golfo_Mt", type number}, {"b_compensacion_este_Mt", type number}, {"b_perdida_propia_este_Mt", type number}, {"c_oman_acreditado_Mt", Int64.Type}, {"oman_dif_no_acreditada_Mt", type number}, {"d_brecha_residual_Mt", type number}, {"preservada_pct", type number}, {"ido_ref_pct", type number}, {"ido_act_pct", type number}, {"compensacion_pct_de_perdida", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+

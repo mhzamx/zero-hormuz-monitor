@@ -1,0 +1,65 @@
+table alertas
+	lineageTag: 4ee137b7-7955-4796-9960-3bdd28ef0664
+
+	column semana_fin
+		dataType: int64
+		formatString: 0
+		lineageTag: d7fa8781-f4e8-4a23-99c1-a7ef05b73ad9
+		summarizeBy: sum
+		sourceColumn: semana_fin
+
+		annotation SummarizationSetBy = Automatic
+
+	column puerto
+		dataType: string
+		lineageTag: 154ccfd3-c985-4492-8e22-3a5eccff672f
+		summarizeBy: none
+		sourceColumn: puerto
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 38483538-0e28-4f2a-b61c-580e7d3dc195
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	column valor_t
+		dataType: double
+		formatString: #,0
+		lineageTag: af7cfa9f-65f2-4abc-a4fc-59ce1506042b
+		summarizeBy: none
+		sourceColumn: valor_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column mediana_previa_t
+		dataType: double
+		formatString: #,0
+		lineageTag: 654e81f1-d7cc-4362-8721-bf66a6932e16
+		summarizeBy: none
+		sourceColumn: mediana_previa_t
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Semana alerta' = CONVERT ( alertas[semana_fin], DATETIME )
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 691c6fa9-a451-4ca0-8cb0-75affef975bf
+		summarizeBy: none
+
+	partition alertas = m
+		mode: import
+		source =
+				let
+				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    alertas_Sheet = Origen{[Item="alertas",Kind="Sheet"]}[Data],
+				    #"Encabezados promovidos" = Table.PromoteHeaders(alertas_Sheet, [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"semana_fin", Int64.Type}, {"puerto", type text}, {"tipo", type text}, {"valor_t", type number}, {"mediana_previa_t", type number}})
+				in
+				    #"Tipo cambiado"
+
+	annotation PBI_ResultType = Table
+
