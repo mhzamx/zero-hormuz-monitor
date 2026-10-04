@@ -1,0 +1,12 @@
+# raw PortWatch downloads (recreate with --refresh)
+data/
+# local database rebuilt on every run
+outputs/zero_hormuz.sqlite
+outputs/powerbi/*.csv
+# Python
+__pycache__/
+*.pyc
+.venv/
+# Power BI Desktop local files
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
