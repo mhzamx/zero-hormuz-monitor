@@ -1,0 +1,24 @@
+relationship r_puerto_portid
+	fromColumn: fact_puerto_diario.portid
+	toColumn: dim_puerto.portid
+
+relationship r_puerto_fecha
+	fromColumn: fact_puerto_diario.fecha
+	toColumn: dim_fecha.fecha
+
+relationship r_puerto_segmento
+	fromColumn: fact_puerto_diario.segmento
+	toColumn: dim_segmento.segmento
+
+relationship r_ormuz_fecha
+	fromColumn: fact_ormuz_diario.fecha
+	toColumn: dim_fecha.fecha
+
+relationship r_resumen_segmento
+	fromColumn: resumen_acumulado.segmento
+	toColumn: dim_segmento_resumen.segmento
+
+relationship r_cascada_segmento
+	fromColumn: cascada_M3.segmento
+	toColumn: dim_segmento_resumen.segmento
+

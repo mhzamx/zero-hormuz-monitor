@@ -1,0 +1,33 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-MX
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["alertas","backtest_wape","cascada_M3","dim_fecha","dim_puerto","dim_segmento","dim_segmento_resumen","fact_ormuz_diario","mso_puertos","resumen_acumulado","fact_puerto_diario","validacion","_Medidas","porque_semanal","porque_capacidad"]
+
+annotation PBI_ProTooling = ["TMDLView_Desktop","DaxQueryView_Desktop","DevMode"]
+
+ref table alertas
+ref table backtest_wape
+ref table cascada_M3
+ref table dim_fecha
+ref table dim_puerto
+ref table dim_segmento
+ref table dim_segmento_resumen
+ref table fact_ormuz_diario
+ref table mso_puertos
+ref table resumen_acumulado
+ref table fact_puerto_diario
+ref table validacion
+ref table _Medidas
+ref table porque_semanal
+ref table porque_capacidad
+
+ref cultureInfo es-ES
+
