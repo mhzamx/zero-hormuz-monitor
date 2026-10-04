@@ -1,0 +1,155 @@
+semana_fin,puerto,tipo,valor_t,mediana_previa_t
+2025-07-20,Abu Dhabi,pico de toneladas,183176.0,94573.5
+2025-08-17,Abu Dhabi,pico de toneladas,190200.0,93602.5
+2025-08-31,Abu Dhabi,pico de toneladas,214573.0,93602.5
+2026-02-01,Abu Dhabi,pico de toneladas,176845.0,82872.0
+2026-03-08,Abu Dhabi,pico de toneladas,724979.0,83194.5
+2026-03-08,Abu Dhabi,salto de toneladas por escala,24999.3,2560.3
+2026-03-15,Abu Dhabi,pico de toneladas,283303.0,88434.0
+2026-03-15,Abu Dhabi,salto de toneladas por escala,10492.7,2599.3
+2026-03-22,Abu Dhabi,pico de toneladas,232757.0,88434.0
+2026-04-05,Abu Dhabi,pico de toneladas,221040.0,91132.0
+2026-06-07,Abu Dhabi,pico de toneladas,3499198.0,73356.0
+2026-06-07,Abu Dhabi,salto de toneladas por escala,30694.7,2245.8
+2026-06-14,Abu Dhabi,pico de toneladas,2586997.0,73356.0
+2026-06-14,Abu Dhabi,salto de toneladas por escala,26947.9,2341.7
+2025-11-09,Al Hamriyah LPG Terminal,pico de toneladas,539604.0,332315.5
+2025-11-30,Al Hamriyah LPG Terminal,pico de toneladas,546944.0,336282.0
+2026-02-22,Al Hamriyah LPG Terminal,pico de toneladas,590506.0,386198.0
+2025-03-02,Das Island,salto de toneladas por escala,33352.5,8408.9
+2025-03-23,Das Island,pico de toneladas,280428.0,58972.5
+2025-03-23,Das Island,salto de toneladas por escala,31158.7,7523.1
+2025-04-06,Das Island,pico de toneladas,291723.0,50549.0
+2025-04-06,Das Island,salto de toneladas por escala,26520.3,7002.9
+2025-07-13,Das Island,pico de toneladas,499994.0,50549.0
+2025-07-13,Das Island,salto de toneladas por escala,45454.0,6644.1
+2025-07-27,Das Island,pico de toneladas,496390.0,56889.0
+2025-07-27,Das Island,salto de toneladas por escala,35456.4,6644.1
+2025-08-10,Das Island,pico de toneladas,357895.0,64402.5
+2025-08-10,Das Island,salto de toneladas por escala,29824.6,6676.8
+2025-08-24,Das Island,pico de toneladas,242089.0,64402.5
+2025-08-24,Das Island,salto de toneladas por escala,30261.1,6676.8
+2025-08-31,Das Island,pico de toneladas,351496.0,64402.5
+2025-08-31,Das Island,salto de toneladas por escala,29291.3,6676.8
+2025-09-21,Das Island,pico de toneladas,266811.0,82525.0
+2025-09-21,Das Island,salto de toneladas por escala,33351.4,7853.0
+2026-01-04,Das Island,salto de toneladas por escala,14827.9,2519.6
+2026-01-18,Das Island,salto de toneladas por escala,8677.8,2519.6
+2026-02-08,Das Island,salto de toneladas por escala,4713.4,614.8
+2026-02-22,Das Island,pico de toneladas,231463.0,5499.5
+2026-02-22,Das Island,salto de toneladas por escala,19288.6,595.6
+2026-03-01,Das Island,salto de toneladas por escala,10652.4,595.6
+2026-03-08,Das Island,pico de toneladas,294666.0,5499.5
+2026-03-08,Das Island,salto de toneladas por escala,98222.0,595.6
+2026-06-28,Das Island,pico de toneladas,321007.0,0.0
+2026-06-28,Das Island,salto de toneladas por escala,32100.7,178.2
+2025-02-16,Dubai,pico de toneladas,650788.0,61123.5
+2025-02-16,Dubai,salto de toneladas por escala,11417.3,1150.5
+2025-02-23,Dubai,pico de toneladas,394265.0,65738.0
+2025-02-23,Dubai,salto de toneladas por escala,6682.5,1171.9
+2025-04-06,Dubai,pico de toneladas,158652.0,60739.0
+2025-04-06,Dubai,salto de toneladas por escala,4287.9,1150.5
+2025-04-27,Dubai,pico de toneladas,250457.0,60739.0
+2025-04-27,Dubai,salto de toneladas por escala,3578.0,1171.9
+2025-05-18,Dubai,pico de toneladas,225585.0,64372.5
+2025-08-31,Dubai,pico de toneladas,173929.0,63316.5
+2025-11-09,Dubai,pico de toneladas,126351.0,49029.5
+2026-02-15,Dubai,pico de toneladas,127385.0,45432.5
+2026-02-22,Dubai,pico de toneladas,187930.0,45432.5
+2026-02-22,Dubai,salto de toneladas por escala,2936.4,965.2
+2026-03-01,Dubai,pico de toneladas,164373.0,52776.5
+2026-03-15,Dubai,salto de toneladas por escala,3763.8,1028.3
+2026-04-05,Dubai,salto de toneladas por escala,3605.2,1170.5
+2026-06-14,Dubai,pico de toneladas,154373.0,61788.0
+2026-06-14,Dubai,salto de toneladas por escala,10291.5,1919.3
+2026-06-21,Dubai,pico de toneladas,199321.0,66002.0
+2025-05-25,Duqm,pico de toneladas,175596.0,83796.5
+2025-06-22,Duqm,pico de toneladas,166029.0,83796.5
+2025-06-29,Duqm,pico de toneladas,188262.0,85042.5
+2025-07-20,Duqm,pico de toneladas,211151.0,85042.5
+2025-08-10,Duqm,pico de toneladas,207374.0,91714.5
+2026-05-03,Duqm,pico de toneladas,297451.0,42617.0
+2026-05-03,Duqm,salto de toneladas por escala,37181.4,8283.4
+2026-07-12,Duqm,salto de toneladas por escala,32338.2,10583.2
+2025-06-22,Jabal Az Zannah-Ruways,pico de toneladas,1785848.0,912166.5
+2025-07-13,Jabal Az Zannah-Ruways,pico de toneladas,1560625.0,951083.5
+2026-02-08,Jebel Ali,pico de toneladas,5912889.0,4607457.0
+2025-01-05,Jebel Dhanna,pico de toneladas,1445.0,281.5
+2025-01-05,Jebel Dhanna,salto de toneladas por escala,481.7,143.4
+2025-02-09,Jebel Dhanna,pico de toneladas,1299.0,281.5
+2025-02-09,Jebel Dhanna,salto de toneladas por escala,649.5,143.7
+2025-02-16,Jebel Dhanna,pico de toneladas,1299.0,281.5
+2025-02-16,Jebel Dhanna,salto de toneladas por escala,649.5,143.7
+2025-02-23,Jebel Dhanna,pico de toneladas,1723.0,285.0
+2025-03-16,Jebel Dhanna,pico de toneladas,1783.0,281.5
+2025-03-23,Jebel Dhanna,pico de toneladas,1438.0,281.5
+2025-03-23,Jebel Dhanna,salto de toneladas por escala,479.3,143.7
+2025-05-25,Jebel Dhanna,pico de toneladas,2296.0,431.0
+2025-06-08,Jebel Dhanna,pico de toneladas,1878.0,457.0
+2025-06-15,Jebel Dhanna,pico de toneladas,1140.0,519.5
+2025-06-22,Jebel Dhanna,pico de toneladas,2203.0,556.5
+2025-07-06,Jebel Dhanna,pico de toneladas,1869.0,556.5
+2025-07-06,Jebel Dhanna,salto de toneladas por escala,467.2,142.5
+2025-07-13,Jebel Dhanna,pico de toneladas,2426.0,556.5
+2025-10-26,Jebel Dhanna,pico de toneladas,1610.0,696.0
+2025-11-16,Jebel Dhanna,pico de toneladas,1195.0,697.0
+2025-11-30,Jebel Dhanna,pico de toneladas,1331.0,697.0
+2026-01-04,Jebel Dhanna,pico de toneladas,2973.0,696.0
+2026-01-04,Jebel Dhanna,salto de toneladas por escala,594.6,139.2
+2026-02-01,Jebel Dhanna,pico de toneladas,2397.0,696.0
+2026-06-07,Jebel Dhanna,salto de toneladas por escala,479.3,139.0
+2026-06-14,Jebel Dhanna,pico de toneladas,2686.0,556.5
+2026-06-14,Jebel Dhanna,salto de toneladas por escala,537.2,139.0
+2026-06-28,Jebel Dhanna,pico de toneladas,3599.0,556.5
+2026-06-28,Jebel Dhanna,salto de toneladas por escala,719.8,139.0
+2026-08-02,Jebel Dhanna,pico de toneladas,2631.0,548.5
+2026-08-02,Jebel Dhanna,salto de toneladas por escala,438.5,139.0
+2025-06-15,Khalifa Port,pico de toneladas,846537.0,661106.0
+2025-06-29,Khalifa Port,pico de toneladas,949725.0,663636.0
+2025-08-10,Khalifa Port,pico de toneladas,890059.0,663636.0
+2025-08-17,Khalifa Port,pico de toneladas,842876.0,665911.5
+2025-09-14,Khalifa Port,pico de toneladas,889777.0,665911.5
+2025-09-21,Khalifa Port,pico de toneladas,955615.0,667703.5
+2025-10-05,Khalifa Port,pico de toneladas,934338.0,667703.5
+2025-10-12,Khalifa Port,pico de toneladas,865397.0,676979.5
+2025-10-19,Khalifa Port,pico de toneladas,901767.0,688276.0
+2025-02-16,Khor Fakkan,pico de toneladas,152158.0,50784.0
+2025-04-20,Khor Fakkan,pico de toneladas,117636.0,48881.5
+2025-05-11,Khor Fakkan,pico de toneladas,155344.0,52534.5
+2025-06-01,Khor Fakkan,pico de toneladas,106370.0,51712.5
+2025-06-15,Khor Fakkan,pico de toneladas,102103.0,51712.5
+2025-07-27,Khor Fakkan,pico de toneladas,177546.0,51712.5
+2026-01-25,Khor Fakkan,pico de toneladas,101400.0,32978.0
+2026-04-05,Khor Fakkan,pico de toneladas,106672.0,36879.0
+2026-04-05,Khor Fakkan,salto de toneladas por escala,26668.0,6543.5
+2026-04-12,Khor Fakkan,pico de toneladas,160920.0,38727.5
+2026-04-26,Khor Fakkan,pico de toneladas,223030.0,39261.0
+2026-05-10,Khor Fakkan,pico de toneladas,172150.0,39460.5
+2026-05-17,Khor Fakkan,pico de toneladas,106457.0,39460.5
+2026-06-07,Khor Fakkan,pico de toneladas,188949.0,48238.0
+2026-06-14,Khor Fakkan,pico de toneladas,195598.0,53667.0
+2026-06-28,Khor Fakkan,pico de toneladas,203640.0,62965.0
+2026-07-05,Khor Fakkan,pico de toneladas,175917.0,65978.5
+2026-07-12,Khor Fakkan,pico de toneladas,267475.0,76896.0
+2026-08-02,Khor Fakkan,pico de toneladas,233077.0,81047.5
+2025-12-28,Mina Saqr,pico de toneladas,1327732.0,908052.5
+2026-02-15,Mina Saqr,pico de toneladas,1168914.0,920827.0
+2026-02-22,Mina Saqr,pico de toneladas,1267018.0,920827.0
+2026-09-13,Port of Sohar,pico de toneladas,1632153.0,778139.0
+2025-04-20,Salalah,pico de toneladas,1642275.0,1053362.5
+2025-04-27,Salalah,pico de toneladas,1817997.0,1053362.5
+2025-05-04,Salalah,pico de toneladas,1538883.0,1079920.0
+2025-03-02,Sharjah,pico de toneladas,225788.0,97238.5
+2025-03-16,Sharjah,pico de toneladas,187728.0,97238.5
+2025-04-06,Sharjah,pico de toneladas,185696.0,97238.5
+2025-12-21,Sharjah,pico de toneladas,251402.0,85089.5
+2026-03-29,Sharjah,pico de toneladas,210149.0,87688.5
+2026-03-29,Sharjah,salto de toneladas por escala,23349.9,3484.0
+2026-06-28,Sharjah,pico de toneladas,180876.0,80627.0
+2026-06-28,Sharjah,salto de toneladas por escala,15073.0,3935.8
+2025-12-28,Umm al Qaiwain,pico de toneladas,8542.0,3051.0
+2026-01-11,Umm al Qaiwain,pico de toneladas,7162.0,3051.0
+2026-05-10,Zirku Island,pico de toneladas,58553.0,525.0
+2026-05-10,Zirku Island,salto de toneladas por escala,19517.7,350.0
+2026-07-19,Zirku Island,pico de toneladas,14725.0,350.0
+2026-07-19,Zirku Island,salto de toneladas por escala,1227.1,233.3
