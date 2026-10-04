@@ -9,6 +9,8 @@ An open, reproducible data pipeline (Python → SQLite → Excel) and a six-page
 > Dashboard labels, table names and some code comments are in Spanish; this README is in English.
 >
 > Version 0.3 · data through 25 Sep 2026 (PortWatch, consulted 3 Oct 2026).
+>
+> **Executive summary (2 pages):** [`docs/ZeroHormuz_Executive_Summary_v0.3.pdf`](docs/ZeroHormuz_Executive_Summary_v0.3.pdf)
 
 ---
 
@@ -20,7 +22,9 @@ An open, reproducible data pipeline (Python → SQLite → Excel) and a six-page
 | UAE container activity preserved | **16.1 %** | 14.5 – 16.2 % |
 | Gulf-coast container loss offset by the east coast | **4.2 %** | 4.2 – 4.7 % |
 | East coast, all cargo | **−23.7 Mt** (own loss, mainly Fujairah tankers) | no net compensation under any method |
-| Residual gap, all cargo | **211.3 Mt** not moved through UAE ports | 205.9 – 227.0 Mt |
+| Gap vs the historical reference, all cargo | **211.3 Mt** | 205.9 – 227.0 Mt |
+
+The gap is the difference in activity relative to the historical reference; its recovery and possible redistribution are assessed through separate scenarios. It does not measure unmet demand or required capacity.
 
 **Validation against official figures.** PortWatch tonnes track official TEU changes closely for Jebel Ali containers: Q2 2026 year on year **−90.9 %** (PortWatch) vs **−90.1 %** (DP World); H1 2026 **−58.9 %** vs **−59.5 %**. Results are validated on percentage changes, not on absolute levels.
 
@@ -56,7 +60,7 @@ At its best 4-week run, the whole east coast moved about **7 %** of the containe
 **Indicators.**
 
 - *Activity preserved* = (Gulf-coast actual + east-coast actual) ÷ (Gulf-coast reference + east-coast reference).
-- *Gap decomposition*: (a) Gulf-coast loss, (b) east-coast compensation or own loss, (c) Oman credited (kept at 0 until there is evidence of diverted UAE cargo), (d) residual gap.
+- *Gap decomposition*: (a) Gulf-coast loss, (b) east-coast compensation or own loss, (c) Oman credited (kept at 0 until there is evidence of diverted UAE cargo), (d) residual gap, i.e. the difference in activity relative to the historical reference.
 - *Alerts*: weekly spikes above a 26-week rolling median + 3 median absolute deviations, and jumps in tonnes per port call. They flag weeks to investigate; they are not confirmed errors.
 
 **Backtest without future information.** Each baseline was tested on three windows before the shock (Mar–Sep 2024, Mar–Sep 2025, Dec 2025–Feb 2026). Median weekly WAPE across groups and segments: M4 15.0 % · M3 16.2 % · M5 17.2 % · M1 20.3 % · M2 21.5 %. For Gulf-coast containers, the segment that drives the headline, M3 averages 9.1 %.
@@ -91,7 +95,7 @@ At its best 4-week run, the whole east coast moved about **7 %** of the containe
 
 </details>
 
-The full report is also available as a PDF: [`docs/ZeroHormuz_Monitor_v0.3.pdf`](docs/ZeroHormuz_Monitor_v0.3.pdf).
+The full dashboard is also available as a PDF: [`docs/ZeroHormuz_Monitor_v0.3.pdf`](docs/ZeroHormuz_Monitor_v0.3.pdf).
 
 **Model.** Star schema with 15 tables (date, port and segment dimensions; daily port and Hormuz facts; summary tables) and 36 DAX measures. The semantic model is stored as TMDL in [`powerbi/semantic-model/`](powerbi/semantic-model/) so measures and relationships can be read and diffed as text.
 
@@ -116,7 +120,8 @@ zero-hormuz-monitor/
 │   ├── ZeroHormuz_theme.json         # report theme
 │   └── semantic-model/               # TMDL: model, relationships, tables and measures
 └── docs/
-    ├── ZeroHormuz_Monitor_v0.3.pdf
+    ├── ZeroHormuz_Executive_Summary_v0.3.pdf   # 2-page executive summary
+    ├── ZeroHormuz_Monitor_v0.3.pdf          # dashboard export
     └── images/                       # page screenshots
 ```
 
