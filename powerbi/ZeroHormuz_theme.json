@@ -1,0 +1,45 @@
+{
+  "name": "Zero Hormuz Monitor",
+  "dataColors": [
+    "#2a78d6",
+    "#eb6834",
+    "#1baf7a",
+    "#898781",
+    "#eda100",
+    "#e87ba4",
+    "#4a3aa7",
+    "#e34948"
+  ],
+  "good": "#898781",
+  "neutral": "#0b0b0b",
+  "bad": "#52514e",
+  "firstLevelElements": "#0b0b0b",
+  "secondLevelElements": "#52514e",
+  "thirdLevelElements": "#e1e0d9",
+  "fourthLevelElements": "#898781",
+  "background": "#fcfcfb",
+  "secondaryBackground": "#c3c2b7",
+  "tableAccent": "#52514e",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0b0b0b"
+    },
+    "title": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0b0b0b"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Segoe UI Semibold",
+      "color": "#0b0b0b"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Segoe UI",
+      "color": "#0b0b0b"
+    }
+  }
+}
