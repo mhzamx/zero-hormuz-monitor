@@ -1,6 +1,6 @@
 """
 Zero Hormuz Monitor v0.3.1 — UAE Data Impact Project 2026
-Reproducible pipeline: IMF PortWatch -> SQLite -> weekly indicators (Biblia v2.3, section 11).
+Reproducible pipeline: IMF PortWatch -> SQLite -> weekly indicators (project protocol v2.3, section 11).
 v0.3.1 adds --data-dir and --out-dir to reproduce a frozen cut; indicators and outputs are unchanged from v0.3.
 
 Usage:
@@ -15,14 +15,14 @@ Reproduce the published cut (data to 2026-09-25, downloaded 2026-10-03) without 
 Outputs (folder outputs/):
     weekly_indicators.csv     weekly actual vs reference (M3 main; M1, M4 sensitivity) by group x segment
     cumulative_summary.csv    cumulative since 2026-03-01: preserved activity, gap decomposition, IDO
-    monthly_east_oman.csv     monthly totals for East coast and Oman (reported monthly, Biblia rule)
+    monthly_east_oman.csv     monthly totals for East coast and Oman (reported monthly, project protocol rule)
     alerts.csv                weekly port spikes (> rolling median + 3 MAD) and tonnes-per-call jumps
     validation.csv            YoY checks vs official figures (DP World, AD Ports, Gulftainer)
     backtest_wape.csv         out-of-sample backtest of reference methods (no future information)
     hormuz_weekly.csv         weekly cargo-vessel transits registered by AIS (PortWatch)
     powerbi/                  star-schema tables (CSV) + ZeroHormuz_PowerBI.xlsx for Power BI (with --powerbi)
                               v0.3 adds porque_semanal + porque_capacidad ("¿Por qué no reemplazan?" page)
-Definitions: see 00 — BIBLIA MAESTRA v2.3, section 11. All PortWatch figures are estimates.
+Definitions: see the project protocol v2.3, section 11. All PortWatch figures are estimates.
 """
 import argparse, datetime as dt, glob, os, sqlite3
 import numpy as np, pandas as pd, requests
@@ -272,7 +272,7 @@ def powerbi_export(dp, hz, G, end):
     dim_p["orden_grupo"] = dim_p.grupo.map({"Golfo EAU": 1, "Costa este EAU": 2, "Omán": 3})
     dim_s = pd.DataFrame({"segmento": BASE_SEGMENTS, "orden": [1, 2, 3, 4], "es_tanquero": [False, False, False, True],
                           "nota": ["Toneladas estimadas de buques portacontenedores", "Carga general y buques RoRo",
-                                   "Graneleros secos", "Tanqueros (se reportan aparte en la Biblia)"]})
+                                   "Graneleros secos", "Tanqueros (se reportan aparte según el protocolo)"]})
     days = pd.date_range("2025-01-01", max(end, hz.d.max()), freq="D")  # cubre también los tránsitos de Ormuz
     dim_f = pd.DataFrame({"fecha": days.date})
     dim_f["anio"] = days.year; dim_f["mes"] = days.month; dim_f["mes_nombre"] = days.strftime("%Y-%m")
@@ -317,7 +317,7 @@ def powerbi_export(dp, hz, G, end):
               "porque_semanal": porque_semanal(dp, end), "porque_capacidad": porque_capacidad()}
     for k, t in tables.items(): t.to_csv(f"{pb}/{k}.csv", index=False, encoding="utf-8-sig")
     leeme = pd.DataFrame([
-        ("Proyecto", "Zero Hormuz Monitor — UAE Data Impact Project 2026. Definiciones: Biblia v2.3, sección 11."),
+        ("Proyecto", "Zero Hormuz Monitor — UAE Data Impact Project 2026. Definiciones: protocolo del proyecto v2.3, sección 11."),
         ("Fuente", "IMF PortWatch (datos abiertos, API ArcGIS). Todas las toneladas y escalas son ESTIMACIONES basadas en señales AIS."),
         ("Corte de datos", f"Puertos hasta {end.date()}; tránsitos de Ormuz hasta {hz.d.max().date()}."),
         ("fact_puerto_diario", "Una fila por fecha × puerto × segmento. toneladas = importación + exportación. ref_M3_t = promedio del mismo día de la semana 52 y 104 semanas antes (referencia principal); ref_M1_t = 52 semanas antes; ref_M4_t = nivel promedio de las 8 semanas previas al choque."),
