@@ -1,0 +1,7 @@
+expression RutaExcel = "C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 852a133b-d0d2-4369-86f2-2a451cc54ce7
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

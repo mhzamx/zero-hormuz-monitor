@@ -9,7 +9,7 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
-annotation PBI_QueryOrder = ["alertas","backtest_wape","cascada_M3","dim_fecha","dim_puerto","dim_segmento","dim_segmento_resumen","fact_ormuz_diario","mso_puertos","resumen_acumulado","fact_puerto_diario","validacion","_Medidas","porque_semanal","porque_capacidad"]
+annotation PBI_QueryOrder = ["RutaExcel","alertas","backtest_wape","cascada_M3","dim_fecha","dim_puerto","dim_segmento","dim_segmento_resumen","fact_ormuz_diario","mso_puertos","resumen_acumulado","fact_puerto_diario","validacion","_Medidas","porque_semanal","porque_capacidad"]
 
 annotation PBI_ProTooling = ["TMDLView_Desktop","DaxQueryView_Desktop","DevMode"]
 
