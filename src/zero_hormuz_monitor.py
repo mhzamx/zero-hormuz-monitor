@@ -1,11 +1,16 @@
 """
-Zero Hormuz Monitor v0.3 — UAE Data Impact Project 2026
-Reproducible pipeline: IMF PortWatch -> SQLite -> weekly indicators (Biblia v2.1, section 11).
+Zero Hormuz Monitor v0.3.1 — UAE Data Impact Project 2026
+Reproducible pipeline: IMF PortWatch -> SQLite -> weekly indicators (Biblia v2.3, section 11).
+v0.3.1 adds --data-dir and --out-dir to reproduce a frozen cut; indicators and outputs are unchanged from v0.3.
 
 Usage:
     python zero_hormuz_monitor.py --refresh      # download fresh data from PortWatch, then compute
     python zero_hormuz_monitor.py                # reuse cached CSVs in data/, then compute
     python zero_hormuz_monitor.py --powerbi      # also export the Power BI package (outputs/powerbi/)
+
+Reproduce the published cut (data to 2026-09-25, downloaded 2026-10-03) without downloading anything:
+    python zero_hormuz_monitor.py --data-dir data/snapshot_2026-10-03 --out-dir outputs_repro --powerbi
+    (--refresh is refused together with --data-dir, so a frozen snapshot is never overwritten)
 
 Outputs (folder outputs/):
     weekly_indicators.csv     weekly actual vs reference (M3 main; M1, M4 sensitivity) by group x segment
@@ -17,7 +22,7 @@ Outputs (folder outputs/):
     hormuz_weekly.csv         weekly cargo-vessel transits registered by AIS (PortWatch)
     powerbi/                  star-schema tables (CSV) + ZeroHormuz_PowerBI.xlsx for Power BI (with --powerbi)
                               v0.3 adds porque_semanal + porque_capacidad ("¿Por qué no reemplazan?" page)
-Definitions: see 00 — BIBLIA MAESTRA v2.1, section 11. All PortWatch figures are estimates.
+Definitions: see 00 — BIBLIA MAESTRA v2.3, section 11. All PortWatch figures are estimates.
 """
 import argparse, datetime as dt, glob, os, sqlite3
 import numpy as np, pandas as pd, requests
@@ -224,8 +229,8 @@ def mso_table(dp):
 
 
 # v0.3 — "¿Por qué los puertos alternativos no reemplazan?"
-# Capacidades OFICIALES de contenedores (millones de TEU al año). No salen de PortWatch: se capturan a mano con su fuente
-# y fecha de consulta. Comparar capacidad con capacidad; nunca mezclar con toneladas AIS.
+# Capacidades de contenedores DECLARADAS por los operadores (millones de TEU al año). No salen de PortWatch: se capturan a mano con su fuente
+# y fecha de consulta. Capacidad declarada no es ocupación medida; nunca mezclar con toneladas AIS.
 CAPACIDAD_OFICIAL = [
     # (puerto, grupo, capacidad_mteu, nota, fuente, url)
     ("Jebel Ali", "Golfo EAU", 19.4, "Capacidad instalada de contenedores; movió 15.5 M TEU en 2024", "DP World",
@@ -312,7 +317,7 @@ def powerbi_export(dp, hz, G, end):
               "porque_semanal": porque_semanal(dp, end), "porque_capacidad": porque_capacidad()}
     for k, t in tables.items(): t.to_csv(f"{pb}/{k}.csv", index=False, encoding="utf-8-sig")
     leeme = pd.DataFrame([
-        ("Proyecto", "Zero Hormuz Monitor — UAE Data Impact Project 2026. Definiciones: Biblia v2.1, sección 11."),
+        ("Proyecto", "Zero Hormuz Monitor — UAE Data Impact Project 2026. Definiciones: Biblia v2.3, sección 11."),
         ("Fuente", "IMF PortWatch (datos abiertos, API ArcGIS). Todas las toneladas y escalas son ESTIMACIONES basadas en señales AIS."),
         ("Corte de datos", f"Puertos hasta {end.date()}; tránsitos de Ormuz hasta {hz.d.max().date()}."),
         ("fact_puerto_diario", "Una fila por fecha × puerto × segmento. toneladas = importación + exportación. ref_M3_t = promedio del mismo día de la semana 52 y 104 semanas antes (referencia principal); ref_M1_t = 52 semanas antes; ref_M4_t = nivel promedio de las 8 semanas previas al choque."),
@@ -327,7 +332,7 @@ def powerbi_export(dp, hz, G, end):
         ("validacion", "Variaciones de PortWatch contra cifras oficiales (DP World, AD Ports, Gulftainer). Nunca comparar niveles."),
         ("alertas", "Picos y saltos de toneladas por escala para investigar; no son errores confirmados."),
         ("porque_semanal", "v0.3. Contenedores por semana (miles de t, estimación AIS) en Jebel Ali, Khor Fakkan y Fujairah; solo semanas completas. khor_fakkan_prom4_kt = promedio móvil de 4 semanas."),
-        ("porque_capacidad", "v0.3. Capacidad OFICIAL de contenedores (millones de TEU/año) con fuente y fecha de consulta. No es dato de PortWatch; no comparar con toneladas."),
+        ("porque_capacidad", "v0.3. Capacidad de contenedores DECLARADA por el operador (millones de TEU/año) con fuente y fecha de consulta. No es dato de PortWatch ni ocupación medida; no comparar con toneladas."),
     ], columns=["campo", "descripcion"])
     with pd.ExcelWriter(f"{pb}/ZeroHormuz_PowerBI.xlsx", engine="openpyxl") as xw:
         leeme.to_excel(xw, sheet_name="LEEME", index=False)
@@ -336,7 +341,16 @@ def powerbi_export(dp, hz, G, end):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--refresh", action="store_true"); ap.add_argument("--powerbi", action="store_true"); a = ap.parse_args()
+    global DATA, OUT
+    ap = argparse.ArgumentParser(); ap.add_argument("--refresh", action="store_true"); ap.add_argument("--powerbi", action="store_true")
+    ap.add_argument("--data-dir", help="read cached PortWatch CSVs from this folder (e.g. a frozen snapshot); never downloads")
+    ap.add_argument("--out-dir", help="write outputs to this folder instead of outputs/")
+    a = ap.parse_args()
+    if a.data_dir:
+        if a.refresh: ap.error("--refresh cannot be combined with --data-dir (a frozen snapshot must not be overwritten)")
+        if not glob.glob(f"{a.data_dir}/ports_daily_*.csv"): ap.error(f"no ports_daily_*.csv found in {a.data_dir}")
+        DATA = a.data_dir
+    if a.out_dir: OUT = a.out_dir
     os.makedirs(OUT, exist_ok=True)
     dp, hz = load(a.refresh); to_sqlite(dp, hz)
     G = daily_group(dp); end = dp.d.max()
