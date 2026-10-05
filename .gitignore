@@ -1,5 +1,6 @@
-# raw PortWatch downloads (recreate with --refresh)
-data/
+# fresh PortWatch downloads from --refresh (the frozen snapshot in data/snapshot_2026-10-03/ is tracked)
+data/*.csv
+outputs_repro/
 # local database rebuilt on every run
 outputs/zero_hormuz.sqlite
 outputs/powerbi/*.csv
