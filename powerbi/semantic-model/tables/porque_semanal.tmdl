@@ -49,7 +49,7 @@ table porque_semanal
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    Hoja = Origen{[Item="porque_semanal",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Hoja, [PromoteAllScalars=true]),
 				    #"Semana como fecha" = Table.TransformColumns(#"Encabezados promovidos", {{"semana", each Date.From(_), type date}}),

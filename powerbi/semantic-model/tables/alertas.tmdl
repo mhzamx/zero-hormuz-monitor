@@ -54,7 +54,7 @@ table alertas
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    alertas_Sheet = Origen{[Item="alertas",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(alertas_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"semana_fin", Int64.Type}, {"puerto", type text}, {"tipo", type text}, {"valor_t", type number}, {"mediana_previa_t", type number}})

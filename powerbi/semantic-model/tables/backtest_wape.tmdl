@@ -57,7 +57,7 @@ table backtest_wape
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    backtest_wape_Sheet = Origen{[Item="backtest_wape",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(backtest_wape_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"grupo", type text}, {"segmento", type text}, {"ventana", type text}, {"metodo", type text}, {"WAPE_pct", type number}, {"sesgo_pct", type number}})

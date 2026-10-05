@@ -78,7 +78,7 @@ table fact_ormuz_diario
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    fact_ormuz_diario_Sheet = Origen{[Item="fact_ormuz_diario",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(fact_ormuz_diario_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"fecha", Int64.Type}, {"transitos_total", Int64.Type}, {"tanqueros", Int64.Type}, {"contenedores", Int64.Type}, {"granel_seco", Int64.Type}, {"carga_general", Int64.Type}, {"roro", Int64.Type}, {"ref_M3_transitos", type number}})

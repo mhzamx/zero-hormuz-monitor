@@ -37,7 +37,7 @@ table cascada_M3
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    cascada_M3_Sheet = Origen{[Item="cascada_M3",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(cascada_M3_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"orden", Int64.Type}, {"concepto", type text}, {"valor_Mt", type number}})

@@ -65,7 +65,7 @@ table dim_puerto
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    dim_puerto_Sheet = Origen{[Item="dim_puerto",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_puerto_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"portid", type text}, {"puerto", type text}, {"grupo", type text}, {"pais", type text}, {"ubicacion", type text}, {"lat", type number}, {"lon", type number}, {"orden_grupo", Int64.Type}})

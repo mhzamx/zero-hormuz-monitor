@@ -27,7 +27,7 @@ table dim_segmento_resumen
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    dim_segmento_resumen_Sheet = Origen{[Item="dim_segmento_resumen",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(dim_segmento_resumen_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"orden", Int64.Type}, {"tipo", type text}})

@@ -168,7 +168,7 @@ table resumen_acumulado
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    resumen_acumulado_Sheet = Origen{[Item="resumen_acumulado",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(resumen_acumulado_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"segmento", type text}, {"referencia", type text}, {"periodo", type text}, {"golfo_ref_Mt", type number}, {"golfo_act_Mt", type number}, {"este_ref_Mt", type number}, {"este_act_Mt", type number}, {"a_perdida_golfo_Mt", type number}, {"b_compensacion_este_Mt", type number}, {"b_perdida_propia_este_Mt", type number}, {"c_oman_acreditado_Mt", Int64.Type}, {"oman_dif_no_acreditada_Mt", type number}, {"d_brecha_residual_Mt", type number}, {"preservada_pct", type number}, {"ido_ref_pct", type number}, {"ido_act_pct", type number}, {"compensacion_pct_de_perdida", type number}})

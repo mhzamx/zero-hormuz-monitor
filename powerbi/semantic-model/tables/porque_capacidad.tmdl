@@ -56,7 +56,7 @@ table porque_capacidad
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    Hoja = Origen{[Item="porque_capacidad",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(Hoja, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"puerto", type text}, {"grupo", type text}, {"capacidad_mteu", type number}, {"nota", type text}, {"fuente", type text}, {"url", type text}, {"consulta", type text}, {"orden", Int64.Type}})

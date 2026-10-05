@@ -80,7 +80,7 @@ table mso_puertos
 		mode: import
 		source =
 				let
-				    Origen = Excel.Workbook(File.Contents("C:\Users\Miguel\Documents\ZeroHormuz\ZeroHormuz_PowerBI.xlsx"), null, true),
+				    Origen = Excel.Workbook(File.Contents(RutaExcel), null, true),
 				    mso_puertos_Sheet = Origen{[Item="mso_puertos",Kind="Sheet"]}[Data],
 				    #"Encabezados promovidos" = Table.PromoteHeaders(mso_puertos_Sheet, [PromoteAllScalars=true]),
 				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"puerto", type text}, {"grupo", type text}, {"segmento", type text}, {"mso_t_semana", type number}, {"semana_fin_mso", Int64.Type}, {"promedio_semanal_mar_sep_2025_t", type number}, {"mso_vs_2025", type number}, {"ultimo_prom4_t_semana", type number}})
